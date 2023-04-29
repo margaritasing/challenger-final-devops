@@ -1,0 +1,33 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    image: yirlli/frontend:1.0
+    ports:
+      - 3000:3000
+    environment:
+      - PRODUCTS_SERVICE=products
+      - SHOPPING_CART_SERVICE=shopping-cart
+    networks:
+      - my-network
+
+  products:
+    container_name: products
+    image: yirlli/ms-products:1.0
+    ports:
+      - 3001:3001
+    hostname: products
+    networks:
+      - my-network
+  shopping-cart:
+    container_name: shopping
+    image: yirlli/ms-shopping-cart:1.0
+    ports:
+      - 3002:3002
+    hostname: shopping-cart
+
+    networks:
+      - my-network      
+networks:
+  my-network:
+    driver: bridge
